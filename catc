@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+if ARGV.empty?
+  $stdout.puts `pygmentize -g -l ruby`
+elsif ARGV.size == 1
+  $stdout.puts `pygmentize -g #{ARGV.last}`
+else
+  $stdout.puts 'too many arguments'
+end
