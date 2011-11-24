@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Quick search in a directory for a string ($1).
+# (taken from https://github.com/holman/dotfiles/blob/master/bin/search)
+set -e
+
+# use -iru to search directories ack usually ignores (like .git)
+ack -i $1
