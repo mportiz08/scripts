@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Checks .epub files for errors by running the java EpubCheck program.
+#
+# Example:
+# epub-check TestBook.epub
+#
+# (Assumes that the epubcheck jar is in your CLASSPATH)
+java com.adobe.epubcheck.tool.Checker $1
