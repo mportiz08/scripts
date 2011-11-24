@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# cd into directory with epub contents
+# and run epub-build
+#
+# author: David Rans
+printf "Enter ePub filename -> "
+read NAME
+zip -X $NAME.epub mimetype
+zip -X $NAME.epub content.opf
+zip -X $NAME.epub toc.ncx
+zip -rg $NAME.epub META-INF -x \*.DS_Store
+zip -rg $NAME.epub OEBPS -x \*.DS_Store
