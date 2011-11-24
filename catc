@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 if ARGV.empty?
-  $stdout.puts `pygmentize -g -l ruby`
+  $stdout.puts `pygmentize -g`
 elsif ARGV.size == 1
   $stdout.puts `pygmentize -g #{ARGV.last}`
 else
