@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+require 'open-uri'
+require 'json'
+
+class String
+  def colorize
+    code = 32
+    percent = self.split('%').first.to_i
+    if percent < 80 && percent >= 60
+      code = 33
+    elsif percent < 80 && percent < 60
+      code = 31
+    end 
+    "\e[1;#{code}m#{self}\e[0m"
+  end
+end
+
+api_key = ENV['ROTTEN_TOMATOES_API_KEY']
+unless api_key
+  $stderr.puts 'The environment variable $ROTTEN_TOMATOES_API_KEY needs to be set.'
+  exit 1
+end
+
+if ARGV.empty?
+  $stderr.puts 'Usage: rotten <movie>'
+  exit 1
+end
+
+title = URI::encode(ARGV.join(' '))
+url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{api_key}&q=#{title}&page_limit=1"
+movie = JSON.parse(open(url).read)['movies'].first
+
+puts "#{movie['title']} (#{movie['year']})"
+puts "#{movie['runtime']} min, #{movie['mpaa_rating']}"
+puts "\nCritics:\t" + "#{movie['ratings']['critics_score']}%".colorize + "\t\"#{movie['ratings']['critics_rating']}\""
+puts "Audience:\t" + "#{movie['ratings']['audience_score']}%".colorize + "\t\"#{movie['ratings']['audience_rating']}\""
+puts "\n#{movie['critics_consensus']}"
