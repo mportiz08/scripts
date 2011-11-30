@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'net/http'
 require 'open-uri'
 require 'json'
 
