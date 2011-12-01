@@ -31,6 +31,11 @@ title = URI::encode(ARGV.join(' '))
 url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{api_key}&q=#{title}&page_limit=1"
 movie = JSON.parse(open(url).read)['movies'].first
 
+if movie.nil?
+  $stderr.puts "Couldn't find that movie, sorry."
+  exit 1
+end
+
 puts "#{movie['title']} (#{movie['year']})"
 puts "#{movie['runtime']} min, #{movie['mpaa_rating']}"
 puts "\nCritics:\t" + "#{movie['ratings']['critics_score']}%".colorize + "\t\"#{movie['ratings']['critics_rating']}\""
