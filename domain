@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'open-uri'
+require 'json'
+require 'awesome_print'
+
+class String
+  def colorize(status)
+    if status == :available
+      code = 32
+    else
+      code = 31
+    end
+    "\e[1;#{code}m#{self}\e[0m"
+  end
+end
+
+url = "http://domai.nr/api/json/search?q=#{URI::encode(ARGV.first)}"
+options = JSON.parse(open(url).read)['results']
+
+options.each do |option|
+  domain = option['domain'] + option['subdomain']
+  if option['availability'] == 'available'
+    puts domain.colorize :available
+  else
+    puts domain.colorize :unavailable
+  end
+end
