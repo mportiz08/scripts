@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+class Integer
+  def to_rgb
+    r = (self >> 16) & 0xff
+    g = (self >> 8) & 0xff
+    b = self & 0xff
+    [r, g, b]
+  end
+end
+
+puts ARGV.first.gsub('#', '0x').to_i(16).to_rgb.inspect
