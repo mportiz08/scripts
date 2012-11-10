@@ -12,7 +12,7 @@ class String
     elsif percent < 80 && percent < 60
       code = 31
     end 
-    "\e[1;#{code}m#{self}\e[0m"
+    "\e[#{code}m#{self}\e[0m"
   end
 end
 
