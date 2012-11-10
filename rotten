@@ -5,6 +5,8 @@ require 'json'
 
 class String
   def colorize
+    return self unless $stdout.isatty
+    
     code = 32
     percent = self.split('%').first.to_i
     if percent < 80 && percent >= 60
